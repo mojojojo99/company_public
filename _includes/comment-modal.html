@@ -1,0 +1,47 @@
+<!-- _includes/comment-modal.html -->
+{% for comment in sorted_comments %}
+{% capture number %}{{ forloop.length }}{% endcapture %}
+{% assign i = forloop.index0 | plus:1 %}
+<div id="myModal{{i}}" class="modal2">
+  <!-- Modal content -->
+  <div class="modal-content">
+  <div id="closemodal{{i}}" class="closemodal">&times;</div>
+    	<div class="content_2" style="margin-top: 3em; padding:2em; border:solid; background-color: #3d4b59ff">
+    	    <div class="row uniform">
+             <div class="6u 12u(small)" style="padding: 0 0 0 1.5em">
+    			    <h3 style="text-align:left; padding-top:1em">{{comment.name}}</h3>
+             </div>
+             <div class="6u 12u(small)" style="padding: 0 0 0 1.5em">
+             {% if comment.rating == "5" %}
+               <h3 style="text-align:left; font-size:2em; color: gold">★★★★★</h3>
+             {% elsif comment.rating == "4" %}
+               <h3 style="text-align:left; font-size:2em; color: gold">★★★★</h3>
+             {% elsif comment.rating == "3" %}
+               <h3 style="text-align:left; font-size:2em; color: gold">★★★</h3>
+             {% elsif comment.rating == "2" %}
+               <h3 style="text-align:left; font-size:2em; color: gold">★★</h3>
+             {% else %}
+               <h3 style="text-align:left; font-size:2em; color: gold">★</h3>
+             {% endif %}
+             </div>
+           </div>
+            <hr style="margin: 1.5em 0"/>
+            <div style="text-align:left">
+            {{comment.message | strip_html | markdownify }}
+            <br />
+            <br />
+            <p>
+              <time
+                class="post-meta dt-published"
+                datetime="{{ page.date | date_to_xmlschema }}"
+                itemprop="datePublished"
+              >
+                {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+                {{ comment.date | date:"%H:%M - %b %-d, %Y" }}
+              </time>
+            </p>
+            </div>
+    	</div>
+    </div>
+</div>
+{% endfor %}

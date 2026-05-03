@@ -1,0 +1,35 @@
+<section id="two" class="wrapper alt style2">
+	{% for post in site.posts limit:site.tiles-count %}{% if site.tiles-source == 'posts' %}
+
+	<section class="spotlight">
+		<div class="image">{% if post.image %}<img src="{% if site.featured-image-source %}{{ post.image | prepend: site.featured-image-source | absolute_url }}{% else %}{{ "" | absolute_url }}/assets/images/{{ post.image }}{% endif %}" alt="" />{% endif %}</div>
+		<div class="content">
+			<h2><a href="{{ post.url | relative_url }}" class="link">{{ post.title }}</a></h2>
+			<p>{{ post.description }}</p>
+		</div>
+	</section>
+
+	{% endif %}{% endfor %}
+
+	{% assign sorted_pages = site.pages | sort:"order" %}
+	{% for page in sorted_pages %}
+		<!-- limit:site.tiles-count %} -->
+	{% if site.tiles-source == 'pages' %}
+	{% if page.layout == 'default' %}{% continue %}{% endif %}
+	{% if page.url == '/assets/css/style.css' %}{% continue %}{% endif %}
+	{% if page.url == '/assets/css/jojo.css' %}{% continue %}{% endif %}
+	{% if page.url == '/feed.xml' %}{% continue %}{% endif %}
+	<section class="spotlight" id="{{page.name2}}">
+		<div class="image">{% if page.image %}<img src="{% if site.featured-image-source %}{{ page.image | prepend: site.featured-image-source | absolute_url }}{% else %}{{ "" | absolute_url }}/assets/images/{{ page.image }}{% endif %}" alt="" />{% endif %}</div>
+		<div class="content">
+			<h2><a href="{{ page.url | relative_url }}" class="link">{{ page.title }}</a></h2>
+			<p>{{ page.description }}</p>
+			{% if page.url == '/toilets.html' %}
+			<p class="blink_text"><b style="background-color: #660000">New Toilets Available This Season (Oct 2024)!</b></p>
+			{% endif %}
+		</div>
+	</section>
+	{% endif %}
+	{% endfor %}
+	<div style="height:0.5em; background-color:#660000"></div>
+</section>

@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Get-ChildItem -Path \"C:\\\\Users\\\\14127\\\\Desktop\\\\company\" -Recurse -File -Name)",
+      "Bash(Select-Object -First 50)",
+      "Bash(xargs grep *)",
+      "Bash(gh pr *)",
+      "PowerShell(gh pr *)"
+    ]
+  }
+}
