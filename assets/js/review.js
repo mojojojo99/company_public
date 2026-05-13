@@ -1,3 +1,5 @@
+var captchaPoller;
+
 $(document).ready(function(){
 		$("#toilets").click(function() {
 			window.location.href = "toilets";
@@ -44,6 +46,16 @@ $(document).ready(function(){
 		}
 
 		var timer = setInterval(AutoRotate, 7000);
+
+	// Pulse the submit button once hCaptcha is verified
+	captchaPoller = setInterval(function() {
+		var hcResponse = document.querySelector('#myform textarea[name="h-captcha-response"]');
+		if (hcResponse && hcResponse.value) {
+			var btn = document.getElementById('submitReviewBtn');
+			if (btn) btn.classList.add('pulse-ready');
+			clearInterval(captchaPoller);
+		}
+	}, 500);
 		$( "body" ).data("timer", timer);
 
 		function radioclickcallback() {
@@ -153,8 +165,16 @@ $(document).ready(function(){
         return response.json();
     }).then(function(data) {
         if (data.success) {
+            clearInterval(captchaPoller);
             form.style.display = 'none';
-            document.getElementById('reviewThankyou').style.display = 'block';
+            var popup = document.getElementById('reviewPopup');
+            popup.style.display = 'flex';
+            document.getElementById('closeReviewPopup').onclick = function() {
+                popup.style.display = 'none';
+            };
+            popup.onclick = function(e) {
+                if (e.target === popup) popup.style.display = 'none';
+            };
         } else {
             alert("Something went wrong, please try again. (" + (data.message || "unknown error") + ")");
         }

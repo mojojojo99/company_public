@@ -1,4 +1,13 @@
 <!-- _includes/comment-form.html -->
+<style>
+@keyframes submitPulse {
+  0%, 100% { background-color: #660000; }
+  50%       { background-color: #c0392b; }
+}
+button.comment-submit.pulse-ready {
+  animation: submitPulse 0.9s ease-in-out infinite;
+}
+</style>
 <form id="myform" action="https://api.web3forms.com/submit"
  method="POST" onsubmit="return submitForm(event)" class="comment-form">
   <input type="hidden" name="access_key" value="c0d78310-04f1-4c93-b58a-1a1ddb587be5" />
@@ -58,10 +67,14 @@
   </div>
   <br/>
   <div class="h-captcha" data-captcha="true" style="margin-bottom: 1em;"></div>
-  <button class="comment-submit" type="submit">Leave a review</button>
+  <button id="submitReviewBtn" class="comment-submit special" type="submit">Submit Review</button>
 </form>
 
-<div id="reviewThankyou" style="display:none; text-align:left; padding: 1em 0;">
-  <h3>Thank you for your review!</h3>
-  <p>It may take some time to show up on the website.</p>
+<div id="reviewPopup" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.55); z-index:9999; justify-content:center; align-items:center;">
+  <div style="background:#fff; border-radius:8px; padding:2em 2em 1.5em; max-width:380px; width:88%; text-align:center; position:relative; box-shadow:0 4px 24px rgba(0,0,0,0.25);">
+    <div style="font-size:2.5em; margin-bottom:0.25em;">⭐</div>
+    <h3 style="margin-bottom:0.5em; color:#2369a7;">Thank you for your review!</h3>
+    <p style="margin-bottom:1.25em; color:#555;">It may take some time to show up on the website.</p>
+    <button id="closeReviewPopup" class="special">Close</button>
+  </div>
 </div>
