@@ -130,15 +130,24 @@ $(document).ready(function(){
 });
 
  function submitForm(event){
-     var radios = document.getElementsByName("fields[rating]");
-     for (var i = 0, len = radios.length; i < len; i++) {
-          if (radios[i].checked) {
-			alert("Response is received! We will review the feedback, thank you!");
-			event.preventDefault();
-            return true;
-          }
-     }
-	$(".apparent-message").css('display', 'block');
+    event.preventDefault();
+    var radios = document.getElementsByName("rating");
+    var ratingSelected = false;
+    for (var i = 0, len = radios.length; i < len; i++) {
+        if (radios[i].checked) { ratingSelected = true; break; }
+    }
+    if (!ratingSelected) {
+        $(".apparent-message").css('display', 'block');
+        return false;
+    }
+    var form = document.getElementById('myform');
+    fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: new FormData(form)
+    }).then(function() {
+        form.style.display = 'none';
+        document.getElementById('reviewThankyou').style.display = 'block';
+    });
     return false;
  }
 

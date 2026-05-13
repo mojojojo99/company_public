@@ -13,7 +13,7 @@ image2: reviews2.jpg
 
 Read here what customers/clients have said about us! <br/> <br/>
 
-Connect with us through <a href="https://api.whatsapp.com/send/?phone=6591125678">whatsapp</a>, <a href="tel:+6591125678">phone</a> or email. <br />
+Please feel free to <b><a href="#divReviewForm" style="color: #660000" >leave your own review</a> </b> below too or connect with us through <a href="https://api.whatsapp.com/send/?phone=6591125678">whatsapp</a>, <a href="tel:+6591125678">phone</a> or email. <br />
 <hr />
 
 {% assign comments = site.data.comments | where_exp: "item", "true" %} 
@@ -70,6 +70,17 @@ Connect with us through <a href="https://api.whatsapp.com/send/?phone=6591125678
 </div>
 <div>
 </div>
-	
 
+</section>
 
+<section>
+<hr/>
+
+<h2>Leave your own Review</h2>
+
+<div id="divReviewForm">
+{% include comment-form.html %}
+</div>
+
+<hr/>
+</section>

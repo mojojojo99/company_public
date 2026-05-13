@@ -1,16 +1,13 @@
 <!-- _includes/comment-form.html -->
-<form id="myform" action="https://jojo-static-20439876cdb1.herokuapp.com/v3/entry/github/mojojojo99/company_public/master/comments"
- method="POST" onsubmit="return submitForm()" class="comment-form">
-  <input
-    name="options[redirect]"
-    type="hidden"
-    value="{{ page.url | absolute_url }}"
-  />
- <input name="options[slug]" type="hidden" value="{{ page.slug }}" />
+<form id="myform" action="https://api.web3forms.com/submit"
+ method="POST" onsubmit="return submitForm(event)" class="comment-form">
+  <input type="hidden" name="access_key" value="c0d78310-04f1-4c93-b58a-1a1ddb587be5" />
+  <input type="hidden" name="subject" value="New Review Submission" />
+<input type="checkbox" name="botcheck" style="display:none;" />
   <p style="text-align: left; margin: 0;"><b>Name (required)</b></p>
   <input
     class="comment-name"
-    name="fields[name]"
+    name="name"
     type="text"
     placeholder="Name"
     required
@@ -20,7 +17,7 @@
   <p style="font-size: 0.6em; text-align: left; margin-bottom: .25em">We'll follow up about your review through the contact number here if provided.</p>
   <input
     class="comment-phone"
-    name="fields[phone]"
+    name="phone"
     type="tel"
     pattern="[0-9]{4} [0-9]{4}"
     placeholder="8888 8888"
@@ -30,7 +27,7 @@
   <p style="text-align: left; margin: 0;"><b>Feedback (required)</b></p>
   <textarea
     class="comment-message"
-    name="fields[message]"
+    name="message"
     placeholder="Feedback/Testimonial message (optional)"
     onkeyup="textAreaAdjust(this)"
     style="overflow:hidden"
@@ -47,18 +44,23 @@
   </div>
   </div>
   <div class="comment-rating" style="font-size:4em; padding-top:.25em">
-      <input id="star5" name="fields[rating]" type="radio" value="5" class="radio-btn" />
+      <input id="star5" name="rating" type="radio" value="5" class="radio-btn" />
       <label style="color: #2369a7" for="star5">☆</label>
-      <input id="star4" name="fields[rating]" type="radio" value="4" class="radio-btn" />
+      <input id="star4" name="rating" type="radio" value="4" class="radio-btn" />
       <label style="color: #2369a7" for="star4">☆</label>
-      <input id="star3" name="fields[rating]" type="radio" value="3" class="radio-btn" />
+      <input id="star3" name="rating" type="radio" value="3" class="radio-btn" />
       <label style="color: #2369a7" for="star3">☆</label>
-      <input id="star2" name="fields[rating]" type="radio" value="2" class="radio-btn" />
+      <input id="star2" name="rating" type="radio" value="2" class="radio-btn" />
       <label style="color: #2369a7" for="star2">☆</label>
-      <input id="star1" name="fields[rating]" type="radio" value="1" class="radio-btn" />
+      <input id="star1" name="rating" type="radio" value="1" class="radio-btn" />
       <label style="color: #2369a7" for="star1">☆</label>
       <div class="clear"></div>
   </div>
   <br/>
   <button class="comment-submit" type="submit">Leave a review</button>
 </form>
+
+<div id="reviewThankyou" style="display:none; text-align:left; padding: 1em 0;">
+  <h3>Thank you for your review!</h3>
+  <p>It may take some time to show up on the website.</p>
+</div>

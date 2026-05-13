@@ -25,3 +25,4 @@ twitter_url:
 
 # Build settings
 markdown: kramdown
+timezone: Asia/Singapore
