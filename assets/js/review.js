@@ -140,6 +140,10 @@ $(document).ready(function(){
         $(".apparent-message").css('display', 'block');
         return false;
     }
+    if (!hcaptcha.getResponse()) {
+        alert("Please complete the captcha before submitting.");
+        return false;
+    }
     var form = document.getElementById('myform');
     fetch('https://api.web3forms.com/submit', {
         method: 'POST',
