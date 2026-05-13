@@ -131,6 +131,7 @@ $(document).ready(function(){
 
  function submitForm(event){
     event.preventDefault();
+    var form = document.getElementById('myform');
     var radios = document.getElementsByName("rating");
     var ratingSelected = false;
     for (var i = 0, len = radios.length; i < len; i++) {
@@ -140,17 +141,25 @@ $(document).ready(function(){
         $(".apparent-message").css('display', 'block');
         return false;
     }
-    if (!hcaptcha.getResponse()) {
+    var hcaptchaResponse = form.querySelector('textarea[name=h-captcha-response]');
+    if (!hcaptchaResponse || !hcaptchaResponse.value) {
         alert("Please complete the captcha before submitting.");
         return false;
     }
-    var form = document.getElementById('myform');
     fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         body: new FormData(form)
-    }).then(function() {
-        form.style.display = 'none';
-        document.getElementById('reviewThankyou').style.display = 'block';
+    }).then(function(response) {
+        return response.json();
+    }).then(function(data) {
+        if (data.success) {
+            form.style.display = 'none';
+            document.getElementById('reviewThankyou').style.display = 'block';
+        } else {
+            alert("Something went wrong, please try again. (" + (data.message || "unknown error") + ")");
+        }
+    }).catch(function() {
+        alert("Something went wrong, please try again.");
     });
     return false;
  }
